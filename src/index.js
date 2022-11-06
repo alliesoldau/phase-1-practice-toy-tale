@@ -53,10 +53,33 @@ function renderToys(toy) {
 }
 
 // Add a New Toy
-// let createToyButton = document.getElementsByClassName('submit')
-// createToyButton.addEventListener('submit', (e) => addNewToyCard(e))
-// function addNewToyCard(e) {
-// console.log(16) }
+let addToyForm = document.querySelector("form")
+addToyForm.addEventListener("submit", (e) => addNewCard(e))
+
+function addNewCard(e) {  
+  e.preventDefault()
+  // console.log(e.target)
+  let newToyName = e.target.name.value
+  let newToyImage = e.target.image.value
+  // console.log(newToyName)
+  // console.log(newToyImage)
+  fetch('http://localhost:3000/toys', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      "name": newToyName,
+      "image": newToyImage,
+      "likes": 0
+  })
+})
+.then(response => response.json())
+.then((data) => {
+  renderToys(data)})
+}
+
 
 
 // Increase a Toy's Likes
@@ -64,7 +87,7 @@ function updateLikeNumber(e) {
   e.preventDefault()
   let buttonId = e.target.id
   let newLikes = parseInt(e.target.previousElementSibling.innerText.split(' ')[0], 10) + 1 
-  console.log('new likes: ', newLikes)
+  // console.log('new likes: ', newLikes)
   fetch(`http://localhost:3000/toys/${buttonId}`, { 
     method: "PATCH",
     headers: { 
