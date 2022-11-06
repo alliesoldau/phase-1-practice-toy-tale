@@ -58,11 +58,11 @@ addToyForm.addEventListener("submit", (e) => addNewCard(e))
 
 function addNewCard(e) {  
   e.preventDefault()
-  // console.log(e.target)
   let newToyName = e.target.name.value
   let newToyImage = e.target.image.value
-  // console.log(newToyName)
-  // console.log(newToyImage)
+  // HOW DO I TOGGLE THE TOY FORM BACK WHEN CLICKED???
+  addToy = !addToy
+  toggleToyForm(addToy)
   fetch('http://localhost:3000/toys', {
     method: 'POST',
     headers: {
@@ -80,6 +80,19 @@ function addNewCard(e) {
   renderToys(data)})
 }
 
+// Toggle toy form
+// HOW TO MAKE THE FORM APPEAR AGAIN AFTER GETTING HIDDEN
+function toggleToyForm(toyToggle) {
+  if (toyToggle === false) {
+    // console.log('false')
+    addToyForm.style.display="none"
+  } else { // I CANT SEEM TO GET BACK IN HERE
+    // console.log('true')
+    addToyForm.style.display="block"
+  }
+}
+
+
 
 
 // Increase a Toy's Likes
@@ -87,7 +100,6 @@ function updateLikeNumber(e) {
   e.preventDefault()
   let buttonId = e.target.id
   let newLikes = parseInt(e.target.previousElementSibling.innerText.split(' ')[0], 10) + 1 
-  // console.log('new likes: ', newLikes)
   fetch(`http://localhost:3000/toys/${buttonId}`, { 
     method: "PATCH",
     headers: { 
