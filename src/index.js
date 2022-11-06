@@ -15,7 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Fetch Andy's Toys
-
+fetch('http://localhost:3000/toys')
+.then(response => response.json())
+.then(toys => {
+  for (let card in toys){
+    renderToys(toys[card])
+  }
+})
 
 // Add Toy Info
 function renderToys(toy) {
@@ -47,20 +53,10 @@ function renderToys(toy) {
 }
 
 // Add a New Toy
-let createToyButton = document.getElementsByClassName('submit')
-createToyButton.addEventListener('submit', (e) => addNewToyCard(e))
-function addNewToyCard(e) {
-console.log(16) }
-
-
-// let newToyButton = document.querySelector('#new-toy-btn')
-// console.log(newToyButton)
-// newToyButton.addEventListener("click", () => addNewToyCard())
-// function addNewToyCard() {
-//   console.log(16)
-// }
-
-
+// let createToyButton = document.getElementsByClassName('submit')
+// createToyButton.addEventListener('submit', (e) => addNewToyCard(e))
+// function addNewToyCard(e) {
+// console.log(16) }
 
 
 // Increase a Toy's Likes
